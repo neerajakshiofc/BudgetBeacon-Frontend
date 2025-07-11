@@ -1,54 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const FinancialNews = () => {
   const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Fetching the financial news from your backend
   useEffect(() => {
-    const fetchFinancialNews = async () => {
+    const fetchNews = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/financial-news');
-
-        if (response.data && response.data.feed) {
-          setNews(response.data.feed);
-        } else {
-          setError('No news available at the moment.');
-        }
+        const res = await axios.get('http://localhost:5000/api/financial-news');
+        setNews(res.data);
       } catch (err) {
         console.error(err);
-        setError('Failed to load financial news. Please try again later.');
-      } finally {
-        setLoading(false);
+        setError('Failed to load financial news.');
       }
     };
 
-    fetchFinancialNews();
+    fetchNews();
   }, []);
 
-  if (loading) return <div>Loading financial news...</div>;
-  if (error) return <div>{error}</div>;
+  if (error) return <div className="text-red-600">{error}</div>;
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Market News</h2>
-      <div className="space-y-4">
-        {news.map((article, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg border border-gray-200">
-            <h3 className="font-medium text-lg text-blue-700 hover:underline">
-              <a href={article.url} target="_blank" rel="noopener noreferrer">
-                {article.title}
-              </a>
-            </h3>
-            <p className="text-sm text-gray-500 mt-1">
-              {new Date(article.time_published).toLocaleString()}
+    <div className="p-6 max-w-3xl mx-auto">
+      <h2 className="text-xl font-semibold mb-4">📰 Financial News</h2>
+      <ul className="space-y-4">
+        {news.map((item, index) => (
+          <li key={index} className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+            <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 font-medium hover:underline">
+              {item.title}
+            </a>
+            <p className="text-sm text-gray-500">
+              {item.source} • {new Date(item.pubDate).toLocaleString()}
             </p>
-            {article.summary && <p className="text-gray-700 mt-2">{article.summary}</p>}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

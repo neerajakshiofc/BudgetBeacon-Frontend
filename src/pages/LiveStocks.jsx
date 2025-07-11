@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const topIndianStocks = [
+  { label: 'Tata Consultancy Services (TCS)', value: 'TCS.NS' },
+  { label: 'Infosys (INFY)', value: 'INFY.NS' },
+  { label: 'Reliance Industries (RELIANCE)', value: 'RELIANCE.NS' },
+  { label: 'HDFC Bank (HDFCBANK)', value: 'HDFCBANK.NS' },
+  { label: 'ICICI Bank (ICICIBANK)', value: 'ICICIBANK.NS' },
+];
+
 const LiveStocks = () => {
   const [symbol, setSymbol] = useState('');
   const [stock, setStock] = useState(null);
@@ -15,9 +23,10 @@ const LiveStocks = () => {
     setStock(null);
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/stock-suggestions`, {
+      const res = await axios.get('http://localhost:5000/api/stock-suggestions', {
         params: { symbol },
       });
+
       setStock(res.data);
     } catch (err) {
       console.error(err);
@@ -29,14 +38,29 @@ const LiveStocks = () => {
 
   return (
     <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Live Stock Price</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">📈 Live Stock Price</h2>
 
+      {/* Dropdown for popular Indian stocks */}
+      <select
+        className="p-2 border border-gray-300 rounded w-full mb-2"
+        value={symbol}
+        onChange={(e) => setSymbol(e.target.value)}
+      >
+        <option value="">Select a Stock</option>
+        {topIndianStocks.map((stock) => (
+          <option key={stock.value} value={stock.value}>
+            {stock.label}
+          </option>
+        ))}
+      </select>
+
+      {/* Text input for custom stock symbol */}
       <div className="flex gap-2 mb-4">
         <input
           type="text"
           value={symbol}
           onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-          placeholder="Enter stock symbol (e.g., AAPL)"
+          placeholder="Or enter stock symbol (e.g., AAPL, TCS.NS)"
           className="p-2 border border-gray-300 rounded w-full"
         />
         <button
@@ -53,9 +77,13 @@ const LiveStocks = () => {
       {stock && (
         <div className="bg-white p-4 border rounded shadow">
           <h3 className="text-lg font-semibold">{stock.symbol}</h3>
-          <p className="text-gray-700">Latest Price: ${stock.latestPrice}</p>
-          <p className={`text-sm ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-            Change: {stock.change.toFixed(2)}%
+          <p className="text-gray-700">Latest Price: ₹{stock.latestPrice}</p>
+          <p
+            className={`text-sm ${
+              stock.change && stock.change >= 0 ? 'text-green-600' : 'text-red-600'
+            }`}
+          >
+            Change: {stock.change?.toFixed(2)}%
           </p>
         </div>
       )}

@@ -1,77 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const StockSuggestions = () => {
-  const [stockData, setStockData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [symbol, setSymbol] = useState('');
+  const [stock, setStock] = useState(null);
   const [error, setError] = useState('');
-  const [symbol, setSymbol] = useState('AAPL'); // default stock symbol
+  const [loading, setLoading] = useState(false);
 
-  // Fetch stock data from your backend API
-  const fetchStockData = async (symbol) => {
+  const fetchStock = async () => {
+    if (!symbol) return;
+
     setLoading(true);
     setError('');
+    setStock(null);
+
     try {
-      const response = await axios.get(`http://localhost:5000/api/stock-suggestions`, {
+      const res = await axios.get('http://localhost:5000/api/stock-suggestions', {
         params: { symbol },
       });
 
-      if (response.data && response.data.length > 0) {
-        setStockData(response.data);
-      } else {
-        setError('No stock data available for this symbol.');
-      }
+      setStock(res.data);
     } catch (err) {
-      setError('Failed to fetch stock data. Please try again later.');
+      console.error(err);
+      setError('Failed to fetch stock data. Please check the symbol.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle stock symbol change
-  const handleSymbolChange = (e) => {
-    setSymbol(e.target.value.toUpperCase());
-  };
-
-  // Fetch on mount and when symbol changes
-  useEffect(() => {
-    fetchStockData(symbol);
-  }, [symbol]);
-
-  if (loading) return <div>Loading stock data...</div>;
-  if (error) return <div className="text-red-600">{error}</div>;
-
   return (
-    <div className="p-6">
+    <div className="p-6 max-w-md mx-auto">
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Stock Suggestions</h2>
 
-      {/* Symbol input field */}
-      <div className="mb-4">
-        <label htmlFor="symbol" className="block text-sm font-medium text-gray-600">
-          Enter Stock Symbol
-        </label>
+      <div className="flex gap-2 mb-4">
         <input
           type="text"
-          id="symbol"
           value={symbol}
-          onChange={handleSymbolChange}
-          className="mt-1 p-2 border border-gray-300 rounded w-64"
+          onChange={(e) => setSymbol(e.target.value.toUpperCase())}
+          placeholder="Enter stock symbol (e.g., TCS.NS, AAPL)"
+          className="p-2 border border-gray-300 rounded w-full"
         />
+        <button
+          onClick={fetchStock}
+          className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+        >
+          Get Stock
+        </button>
       </div>
 
-      {/* Stock Data Display */}
-      <div className="space-y-4 max-h-[400px] overflow-y-auto">
-        {stockData.map((stock, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-            <h3 className="font-medium">Date: {stock.date}</h3>
-            <p className="text-gray-600">Open: ${stock.open}</p>
-            <p className="text-gray-600">Close: ${stock.close}</p>
-            <p className="text-gray-600">High: ${stock.high}</p>
-            <p className="text-gray-600">Low: ${stock.low}</p>
-            <p className="text-gray-600">Volume: {stock.volume}</p>
-          </div>
-        ))}
-      </div>
+      {loading && <p className="text-gray-500">Loading...</p>}
+      {error && <p className="text-red-600">{error}</p>}
+
+      {stock && (
+        <div className="bg-white p-4 border rounded shadow">
+          <h3 className="text-lg font-semibold">{stock.name} ({stock.symbol})</h3>
+          <p className="text-gray-700">Price: ₹{stock.latestPrice} {stock.currency}</p>
+          <p
+            className={`text-sm ${
+              stock.change && stock.change >= 0 ? 'text-green-600' : 'text-red-600'
+            }`}
+          >
+            Change: {stock.change?.toFixed(2)}%
+          </p>
+          <p className="text-gray-500 text-xs">Last updated: {stock.marketTime}</p>
+        </div>
+      )}
     </div>
   );
 };
