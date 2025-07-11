@@ -10,7 +10,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/register", {
+      const res = await axios.post("https://budget-beacon-backend-2.onrender.com/api/register", {
         email,
         password,
       });
