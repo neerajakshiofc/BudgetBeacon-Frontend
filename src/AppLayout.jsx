@@ -1,7 +1,7 @@
 import { useNavigate, useLocation, NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import {
-  FiSearch, FiHome, FiMessageSquare, FiDollarSign, FiTrendingUp,
+  FiHome, FiMessageSquare, FiDollarSign, FiTrendingUp,
   FiBookOpen, FiPieChart, FiBarChart2, FiCalendar, FiHelpCircle,
   FiInfo, FiLogOut
 } from 'react-icons/fi';
@@ -24,7 +24,6 @@ function AppLayout() {
   const location = useLocation();
   const sidebarRef = useRef(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [user] = useState({ email: 'user@example.com' });
 
   const menuItems = [
     { path: 'main', label: 'Dashboard', icon: <FiHome className="mr-3" />, active: false },
@@ -106,24 +105,10 @@ function AppLayout() {
             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="toggle-btn md:hidden">
               ☰
             </button>
-          </div>
-          <div className="profile">
-            <div className="search-bar">
-              <FiSearch />
-              <input type="text" placeholder="Search features..." />
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="profile-icon">
-                  {user?.email.charAt(0).toUpperCase()}
-                </div>
-                <span className="text-sm text-gray-600 hidden md:inline">{user?.email}</span>
-              </div>
-              <button onClick={handleLogout} className="logout-btn">
-                <FiLogOut />
-                <span>Logout</span>
-              </button>
-            </div>
+            <button onClick={handleLogout} className="logout-btn flex items-center">
+              <FiLogOut className="mr-1" />
+              <span>Logout</span>
+            </button>
           </div>
         </header>
 
@@ -142,14 +127,15 @@ function AppLayout() {
             <Route path="about-app" element={<AboutApp />} />
           </Routes>
         </main>
+
+        {/* ✅ Footer */}
+        <footer className="footer text-center p-4 text-gray-600 text-sm">
+          © {new Date().getFullYear()} BudgetBeacon. All rights reserved. <br />
+          <em>Plan smart. Spend wisely. Live freely.</em>
+        </footer>
       </div>
     </div>
   );
 }
-
-<footer className="footer text-center p-4 text-gray-600 text-sm">
-  © {new Date().getFullYear()} BudgetBeacon. All rights reserved. <br />
-  <em>Plan smart. Spend wisely. Live freely.</em>
-</footer>
 
 export default AppLayout;

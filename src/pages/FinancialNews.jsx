@@ -1,38 +1,52 @@
+// frontend/src/components/FinancialNews.jsx
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 const FinancialNews = () => {
   const [news, setNews] = useState([]);
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const getNews = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/financial-news');
-        setNews(res.data);
+        const res = await fetch('http://localhost:5000/api/financial-news');
+        const data = await res.json();
+        setNews(data);
       } catch (err) {
-        console.error(err);
-        setError('Failed to load financial news.');
+        console.error('Error fetching news:', err);
+        setNews([
+          {
+            title: 'Unable to load news.',
+            link: '#',
+            pubDate: new Date().toISOString(),
+            source: 'System',
+          },
+        ]);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchNews();
+    getNews();
   }, []);
 
-  if (error) return <div className="text-red-600">{error}</div>;
+  if (loading) return <p className="text-center text-gray-600">Loading Yahoo Finance news...</p>;
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-xl font-semibold mb-4">📰 Financial News</h2>
+    <div className="p-4 bg-white rounded-lg shadow-md max-w-3xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-indigo-700">📰 Economic Times News</h2>
       <ul className="space-y-4">
-        {news.map((item, index) => (
-          <li key={index} className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
-            <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 font-medium hover:underline">
-              {item.title}
+        {news.map((article, index) => (
+          <li key={index} className="border-b pb-3">
+            <a
+              href={article.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 font-medium hover:underline"
+            >
+              {article.title}
             </a>
-            <p className="text-sm text-gray-500">
-              {item.source} • {new Date(item.pubDate).toLocaleString()}
-            </p>
+            <p className="text-sm text-gray-500">{new Date(article.pubDate).toLocaleString()}</p>
+            <p className="text-xs text-gray-400">{article.source}</p>
           </li>
         ))}
       </ul>

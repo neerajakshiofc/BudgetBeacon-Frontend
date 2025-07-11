@@ -29,8 +29,15 @@ const StockSuggestions = () => {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Stock Suggestions</h2>
+    <div className="p-6 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold text-gray-800 mb-3">📈 Stock Suggestions</h2>
+      <p className="text-gray-600 mb-4">
+        Get real-time stock suggestions and analysis based on your input. This is perfect for beginners who want to explore and understand stocks before investing.
+      </p>
+
+      <div className="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 p-3 rounded mb-4 text-sm">
+        💡 Tip: Try entering symbols like <code>TCS.NS</code>, <code>INFY.NS</code>, <code>RELIANCE.NS</code> (for Indian stocks) or <code>AAPL</code>, <code>GOOGL</code>, <code>TSLA</code> (for US stocks).
+      </div>
 
       <div className="flex gap-2 mb-4">
         <input
@@ -48,25 +55,41 @@ const StockSuggestions = () => {
         </button>
       </div>
 
-      {loading && <p className="text-gray-500">Loading...</p>}
+      {loading && <p className="text-gray-500">Loading stock data...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
       {stock && (
-        <div className="bg-white p-4 border rounded shadow">
-          <h3 className="text-lg font-semibold">{stock.name} ({stock.symbol})</h3>
-          <p className="text-gray-700">Price: ₹{stock.latestPrice} {stock.currency}</p>
+        <div className="bg-white p-5 border rounded shadow-md">
+          <h3 className="text-lg font-semibold mb-1">
+            {stock.name} ({stock.symbol})
+          </h3>
+          <p className="text-gray-700">Current Price: ₹{stock.latestPrice} {stock.currency}</p>
           <p
-            className={`text-sm ${
+            className={`text-sm mb-1 ${
               stock.change && stock.change >= 0 ? 'text-green-600' : 'text-red-600'
             }`}
           >
             Change: {stock.change?.toFixed(2)}%
           </p>
-          <p className="text-gray-500 text-xs">Last updated: {stock.marketTime}</p>
+          <div className="text-sm text-gray-600 space-y-1 mt-2">
+  <p>📊 <strong>Day High:</strong> {stock.dayHigh ? `₹${stock.dayHigh}` : 'Not available'}</p>
+  <p>📉 <strong>Day Low:</strong> {stock.dayLow ? `₹${stock.dayLow}` : 'Not available'}</p>
+  <p>📦 <strong>Volume:</strong> {stock.volume ? stock.volume : 'Not available'}</p>
+  <p>🕒 <strong>Market Time:</strong> {stock.marketTime ? stock.marketTime : 'Not available'}</p>
+</div>
+
+
+          <div className="mt-4 text-sm text-blue-600">
+            📌 <strong>Beginner Tip:</strong> Use this data to decide if the stock fits your strategy. Rising stocks might be trending, but always do your own research before investing.
+          </div>
         </div>
       )}
     </div>
   );
-};
+};<div className="mt-4 text-sm text-blue-600">
+🔍 <strong>Why is some data missing?</strong><br />
+Sometimes, live stock APIs may not return all data instantly (especially during non-market hours). If you see "Not available," try again during market times or with different symbols.
+</div>
+
 
 export default StockSuggestions;

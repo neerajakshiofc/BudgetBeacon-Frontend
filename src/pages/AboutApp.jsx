@@ -21,7 +21,7 @@ const AboutApp = () => {
         </p>
         <p className="text-sm text-gray-500">
           Version: 1.0.0<br />
-          © 2023 Budget Beacon
+          © 2025 Budget Beacon
         </p>
       </div>
     </div>
