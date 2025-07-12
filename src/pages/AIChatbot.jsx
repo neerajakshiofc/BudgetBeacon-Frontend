@@ -11,7 +11,7 @@ function AIChatbot() {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/chat', { prompt: query });
+      const res = await axios.post('https://budget-beacon-backend-2.onrender.com/api/chat', { prompt: query });
       setResponse(res.data.reply);
     } catch (err) {
       setResponse("Error: Unable to get response from assistant.");

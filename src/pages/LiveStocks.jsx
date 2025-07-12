@@ -37,7 +37,7 @@ const LiveStocks = () => {
     setChartData(null);
 
     try {
-      const res = await axios.get('http://localhost:5000/api/stock-suggestions', {
+      const res = await axios.get('https://budget-beacon-backend-2.onrender.com/api/stock-suggestions', {
         params: { symbol },
       });
 

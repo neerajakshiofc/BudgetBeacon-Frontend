@@ -8,7 +8,7 @@ const FinancialNews = () => {
   useEffect(() => {
     const getNews = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/financial-news');
+        const res = await fetch('https://budget-beacon-backend-2.onrender.com/api/financial-news');
         const data = await res.json();
         setNews(data);
       } catch (err) {

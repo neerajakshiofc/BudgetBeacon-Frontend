@@ -13,7 +13,7 @@ const FinancialPlanner = () => {
   useEffect(() => {
     const fetchGoals = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/plan/financial-goals');
+        const response = await axios.get('https://budget-beacon-backend-2.onrender.com/api/plan/financial-goals');
         setGoals(response.data);
       } catch (err) {
         setError('Error fetching goals. Please try again later.');
