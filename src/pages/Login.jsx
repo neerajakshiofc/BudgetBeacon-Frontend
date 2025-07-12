@@ -10,7 +10,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://budget-beacon-backend-2.onrender.com/api/login", {
+      const res = await axios.post('https://budget-beacon-backend-2.onrender.com/api/login', {
         email,
         password,
       });
