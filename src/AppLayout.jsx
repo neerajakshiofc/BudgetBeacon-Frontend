@@ -131,7 +131,6 @@ function AppLayout() {
         {/* ✅ Footer */}
         <footer className="footer text-center p-4 text-gray-600 text-sm">
           © {new Date().getFullYear()} BudgetBeacon. All rights reserved. <br />
-          <em>Plan smart. Spend wisely. Live freely.</em>
         </footer>
       </div>
     </div>
