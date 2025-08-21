@@ -1,5 +1,3 @@
----
-
 # 💸 BudgetBeacon (BB)
 
 **Plan Smart. Spend Wisely. Live Freely.**
@@ -101,10 +99,10 @@ BudgetBeacon is live across multiple platforms:
   👉 [BudgetBeacon Web App](https://neeru-s-project-budgetbeacon.firebaseapp.com/login)
 
 * 🟢 **Backend (Node + Express + MongoDB)** → Deployed on **Render**
-  👉 [BudgetBeacon API – Render](https://budgetbeacon-backend.onrender.com) *(replace with real Render URL)*
+  👉 [BudgetBeacon API – Render](https://budgetbeacon-backend.onrender.com) 
 
 * 🟣 **Replit (Optional)** → Run BudgetBeacon directly in browser
-  👉 [Run on Replit](https://replit.com/@yourusername/BudgetBeacon) *(if deployed here)*
+  👉 [Run on Replit](https://replit.com/@neerajakshikopp/budget-beacon-backend)
 
 * 🐳 **Docker (Local Containers)**
 
@@ -167,4 +165,5 @@ Developed with ❤️ by **Neerajakshi Koppisetty**
 ✨ Now your README looks **super polished & GitHub-ready** with **deployment details + screenshots + demo**.
 
 Do you also want me to add **badges (GitHub stars, Firebase hosting, Render deploy, Docker, MIT license)** at the top for a **modern open-source look**?
+
 
