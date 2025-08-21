@@ -167,3 +167,4 @@ Developed with ❤️ by **Neerajakshi Koppisetty**
 Do you also want me to add **badges (GitHub stars, Firebase hosting, Render deploy, Docker, MIT license)** at the top for a **modern open-source look**?
 
 
+
