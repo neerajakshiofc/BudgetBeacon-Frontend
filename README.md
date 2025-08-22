@@ -96,7 +96,7 @@ npm start   # Backend runs on http://localhost:5000
 BudgetBeacon is live across multiple platforms:
 
 * 🌐 **Frontend (React)** → Deployed on **Firebase Hosting**
-  👉 [BudgetBeacon Web App](backend may respond slowly)[https://neeru-s-project-budgetbeacon.firebaseapp.com/login]
+  👉 [BudgetBeacon Web App](backend may respond slowly due to free-tier hosting)[https://neeru-s-project-budgetbeacon.firebaseapp.com/login]
   [https://neeru-s-project-budgetbeacon.web.app/login]
 * 🟢 **Backend (Node + Express + MongoDB)** → Deployed on **Render**
   👉 [BudgetBeacon API – Render](https://budgetbeacon-backend.onrender.com) 
@@ -165,6 +165,7 @@ Developed with ❤️ by **Neerajakshi Koppisetty**
 ✨ Now your README looks **super polished & GitHub-ready** with **deployment details + screenshots + demo**.
 
 Do you also want me to add **badges (GitHub stars, Firebase hosting, Render deploy, Docker, MIT license)** at the top for a **modern open-source look**?
+
 
 
 
