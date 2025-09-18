@@ -161,13 +161,3 @@ Developed with ❤️ by **Neerajakshi Koppisetty**
 * 💻 [GitHub](https://github.com/neerajakshiofc)
 
 ---
-
-✨ Now your README looks **super polished & GitHub-ready** with **deployment details + screenshots + demo**.
-
-Do you also want me to add **badges (GitHub stars, Firebase hosting, Render deploy, Docker, MIT license)** at the top for a **modern open-source look**?
-
-
-
-
-
-
