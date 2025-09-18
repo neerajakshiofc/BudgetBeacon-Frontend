@@ -159,7 +159,8 @@ Developed with ❤️ by **Neerajakshi Koppisetty**
 
 * 🌐 [LinkedIn](https://www.linkedin.com/in/koppisetty-neerajakshi/)
 * 💻 [GitHub](https://github.com/neerajakshiofc)
-* 📝 [Medium Blogs]()
+* 📝 [Medium Blogs](https://medium.com/@neerajakshikoppisetty)
 
 ---
+
 
